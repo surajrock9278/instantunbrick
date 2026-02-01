@@ -8,6 +8,7 @@ import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Terms from './pages/Terms';
 import BookingForm from './components/BookingForm';
+import Admin from './pages/Admin';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -38,6 +39,7 @@ const App: React.FC = () => {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/booking" element={<BookingPage />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
         <Footer />

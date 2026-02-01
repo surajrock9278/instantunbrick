@@ -19,6 +19,12 @@ export interface BookingFormData {
   issueDescription: string;
 }
 
+export interface Booking extends BookingFormData {
+  id: string;
+  date: string;
+  status: 'pending' | 'completed';
+}
+
 export enum DiagnosticStatus {
   Idle = 'idle',
   Analyzing = 'analyzing',

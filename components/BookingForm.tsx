@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookingFormData } from '../types';
+import { BookingFormData, Booking } from '../types';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const BookingForm: React.FC = () => {
@@ -21,11 +21,35 @@ const BookingForm: React.FC = () => {
     e.preventDefault();
     setStatus('submitting');
 
-    // Simulate API call to PHP backend
+    // Simulate API call and save to local storage (Simulating Database)
     setTimeout(() => {
-      // In a real scenario, this would POST to /api/book_repair.php
-      console.log("Form Submitted:", formData);
-      setStatus('success');
+      try {
+        const newBooking: Booking = {
+          ...formData,
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          status: 'pending'
+        };
+        
+        // Save to local storage for Admin Panel visibility
+        const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        localStorage.setItem('bookings', JSON.stringify([newBooking, ...existingBookings]));
+
+        console.log("Form Submitted & Saved:", newBooking);
+        console.log("Email forwarded to: admin@instantunbrick.com");
+        
+        setStatus('success');
+        setFormData({
+          fullName: '',
+          email: '',
+          whatsapp: '',
+          model: '',
+          issueDescription: ''
+        });
+      } catch (err) {
+        console.error(err);
+        setStatus('error');
+      }
     }, 1500);
   };
 
@@ -37,8 +61,8 @@ const BookingForm: React.FC = () => {
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">Request Received!</h3>
         <p className="text-slate-400 mb-6">
-          Thank you, {formData.fullName}. We have received your unbrick request. 
-          A technician will contact you via WhatsApp at <span className="text-brand-400">{formData.whatsapp}</span> within 15 minutes.
+          Thank you. We have received your request and forwarded it to our technicians. 
+          Expect a WhatsApp message at <span className="text-brand-400">{formData.whatsapp}</span> shortly.
         </p>
         <button 
           onClick={() => setStatus('idle')}

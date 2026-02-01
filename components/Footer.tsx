@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Smartphone, Mail, MessageCircle } from 'lucide-react';
+import { Smartphone, Mail, MessageCircle, Lock } from 'lucide-react';
 import { APP_NAME } from '../constants';
 
 const Footer: React.FC = () => {
@@ -57,9 +57,14 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-slate-900 mt-12 pt-8 text-center text-xs text-slate-600">
-          <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
-          <p className="mt-2">Not affiliated with Xiaomi Inc.</p>
+        <div className="border-t border-slate-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-600">
+          <div className="text-center md:text-left">
+            <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+            <p className="mt-2">Not affiliated with Xiaomi Inc.</p>
+          </div>
+          <Link to="/admin" className="mt-4 md:mt-0 flex items-center gap-1 hover:text-brand-500 transition-colors">
+            <Lock className="w-3 h-3" /> Admin Login
+          </Link>
         </div>
       </div>
     </footer>
